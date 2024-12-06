@@ -1,7 +1,6 @@
 import mysql.connector
 from models.produto import Produto 
 
-
 class ProdutoController:
 
     #C - Criar um novo registro no banco de dados
