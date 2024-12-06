@@ -5,11 +5,6 @@ class Cliente:
         self.cpf=cpf
         self.telefone=telefone
         self.endereco=endereco
-    
-    def alterar(self, nome, telefone, endereco):
-        self.nome=nome
-        self.telefone=telefone
-        self.endereco=endereco
 
     def imprimir(self):
          print(  f" cpf: {self.cpf}"+
