@@ -1,16 +1,24 @@
-from database.conector import Conector
-from controllers.produto_controller import ProdutoController
+import flet as ft
+from view.produto_view import produto_view
 
-conexao = Conector.conectar()
-
-if conexao!=None:
-    print("Conectado com o banco de dados")
-  
-    produtos =  ProdutoController.buscar(conexao, "X")
-    if produtos!=[]:
-        for produto in produtos:
-            produto.listar()
-    else:
-        print("Nenhum produto encontrado!")
+def main(page: ft.Page):
+    page.title="Lanchonete Siri Cascudo"
+    page.horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    page.window.height=600
+    page.window.width=600
+    page.scroll=ft.ScrollMode.AUTO
     
-    Conector.fechar_conexao(conexao)
+    
+    def chama_produto(e):
+        coluna = produto_view(page)
+        page.clean()
+        page.add(coluna)
+    
+    page.add(
+            ft.ElevatedButton(
+                    "Produtos", 
+                    on_click=chama_produto
+                    )
+            )
+    
+ft.app(main)
