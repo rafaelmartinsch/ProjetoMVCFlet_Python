@@ -2,12 +2,19 @@ import flet as ft
 from database.conector import Conector 
 from controllers.produto_controller import ProdutoController
 
-def produto_view(page):
+def produto_view(page): 
     conexao =  Conector.conectar()
-    elementos = []
     
+    viewprodutos = ft.View(
+            route="/",
+            controls=[                
+            ]
+        )
+
     if conexao != None:
         produtos =  ProdutoController.listar(conexao)
+        
+
         
         page.snack_bar = ft.SnackBar(ft.Text("Conexão estabelecida!"))
         page.snack_bar.open = True
@@ -41,23 +48,14 @@ def produto_view(page):
         tabela.rows=dt_rows
 
 
-        elementos.append(desc_field)
-        elementos.append(valor_field)
-        elementos.append(qtd_field)
-        elementos.append(salvar_button)
-        elementos.append(divisor)
-        elementos.append(tabela)
-        
+        viewprodutos.controls.append([desc_field,valor_field,qtd_field,salvar_button,divisor,tabela])
         
         
     else:
         print("Falha na Conexão!")
         page.snack_bar = ft.SnackBar(ft.Text("Falha na Conexao!"))
         page.snack_bar.open = True
+        page.go("/")
         
-        
-    return ft.Column(
-        elementos
-    )
-
+    return viewprodutos
         

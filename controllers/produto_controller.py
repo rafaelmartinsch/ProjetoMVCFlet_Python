@@ -28,7 +28,7 @@ class ProdutoController:
             for registro in registros:
                 objeto =  Produto(*registro) #Produto(registro[0],registro[1],..)
                 listaProdutos.append(objeto)
-        
+                print(registros)
         except mysql.connector.Error as e:
             print(f"Erro ao listar produtos:{e}")  
         finally:
@@ -39,7 +39,7 @@ class ProdutoController:
     def update(conexao, idProduto, preco, qtd):
         try:
             cursor =  conexao.cursor()
-            query = "UPDATE produto SET preco=%s, qtd=%s WHERE id_codigo_produto=%s"
+            query = "UPDATE produto SET preco=%s, qtd=%s WHERE id=%s"
             cursor.execute(query, (preco, qtd, idProduto))
             conexao.commit()
             print(f"{idProduto} atualizado com sucesso!")
