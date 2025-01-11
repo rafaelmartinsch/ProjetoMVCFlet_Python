@@ -28,7 +28,7 @@ class ProdutoController:
             for registro in registros:
                 objeto =  Produto(*registro) #Produto(registro[0],registro[1],..)
                 listaProdutos.append(objeto)
-                print(registros)
+                
         except mysql.connector.Error as e:
             print(f"Erro ao listar produtos:{e}")  
         finally:

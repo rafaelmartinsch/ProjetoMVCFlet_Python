@@ -8,16 +8,17 @@ def produto_view(page):
     viewprodutos = ft.View(
             route="/",
             controls=[                
-            ]
+            ],
+            scroll=ft.ScrollMode.AUTO
         )
 
     if conexao != None:
         produtos =  ProdutoController.listar(conexao)
-        
-
-        
-        page.snack_bar = ft.SnackBar(ft.Text("Conexão estabelecida!"))
-        page.snack_bar.open = True
+                
+        snackbar = ft.SnackBar(ft.Text("Conexão estabelecida!"))
+        page.overlay.append(snackbar)
+        snackbar.open = True
+        page.update()
         
         desc_field =  ft.TextField(label="Descição")
         valor_field =  ft.TextField(label="Valor")
@@ -26,13 +27,13 @@ def produto_view(page):
                 
         divisor =  ft.Divider(height=5)
         tabela = ft.DataTable(
-        columns=[
-                ft.DataColumn(ft.Text("ID")),
-                ft.DataColumn(ft.Text("Produto")),
-                ft.DataColumn(ft.Text("Valor")),
-                ft.DataColumn(ft.Text("Qtd")),
-            ],
-            rows=[]
+            columns=[
+                    ft.DataColumn(ft.Text("ID")),
+                    ft.DataColumn(ft.Text("Produto")),
+                    ft.DataColumn(ft.Text("Valor")),
+                    ft.DataColumn(ft.Text("Qtd")),
+                ],
+                rows=[]
         )
 
 
@@ -48,7 +49,7 @@ def produto_view(page):
         tabela.rows=dt_rows
 
 
-        viewprodutos.controls.append([desc_field,valor_field,qtd_field,salvar_button,divisor,tabela])
+        viewprodutos.controls = [desc_field,valor_field,qtd_field,salvar_button,divisor,tabela]
         
         
     else:
