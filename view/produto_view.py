@@ -1,6 +1,7 @@
 import flet as ft
 from database.conector import Conector 
 from controllers.produto_controller import ProdutoController
+from models.produto import Produto 
 
 def produto_view(page): 
     conexao =  Conector.conectar()
@@ -15,6 +16,18 @@ def produto_view(page):
     if conexao != None:
         produtos =  ProdutoController.listar(conexao)
                 
+
+        def salvar(e):
+            novoProduto = Produto(parCod=None, 
+                                  parDescricao=desc_field.value,
+                                  parPreco=valor_field.value,
+                                  parQtd=qtd_field.value
+                                  )
+            ProdutoController.inserir(conexao, novoProduto)
+            page.snack_bar = ft.SnackBar(ft.Text("Produto Salvo!"))
+            page.snack_bar.open = True
+            page.go("/produtos")
+        
         snackbar = ft.SnackBar(ft.Text("Conexão estabelecida!"))
         page.overlay.append(snackbar)
         snackbar.open = True
@@ -23,7 +36,7 @@ def produto_view(page):
         desc_field =  ft.TextField(label="Descição")
         valor_field =  ft.TextField(label="Valor")
         qtd_field =  ft.TextField(label="Quantidade")
-        salvar_button = ft.ElevatedButton(text="Salvar")
+        salvar_button = ft.ElevatedButton(text="Salvar", on_click=salvar)
                 
         divisor =  ft.Divider(height=5)
         tabela = ft.DataTable(

@@ -1,4 +1,4 @@
-import mysql.connector
+import pymysql
 import os
 from dotenv import load_dotenv
 
@@ -17,14 +17,14 @@ class Conector:
     def conectar():
         conexao=None
         try:
-            conexao =  mysql.connector.connect(
+            conexao =  pymysql.connect(
                 host=db_host,
                 user=db_user,
                 password=db_password,
                 database=db_name
             )
             print("Conexão com o BD estabelecida!")
-        except mysql.connector.Error as e:
+        except pymysql.connector.Error as e:
             print(f"Erro ao conectar com o BD:{e}")
 
         return conexao

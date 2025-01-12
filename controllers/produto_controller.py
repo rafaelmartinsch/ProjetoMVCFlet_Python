@@ -1,4 +1,4 @@
-import mysql.connector
+import pymysql
 from models.produto import Produto 
 
 class ProdutoController:
@@ -12,7 +12,7 @@ class ProdutoController:
             conexao.commit()
             print(f"{produto.descricao} Registrado como sucesso!")
             
-        except mysql.connector.Error as e:
+        except Exception as e:
             print(f"Erro ao inserir produto:{e}")  
         finally:
             cursor.close()
@@ -29,7 +29,7 @@ class ProdutoController:
                 objeto =  Produto(*registro) #Produto(registro[0],registro[1],..)
                 listaProdutos.append(objeto)
                 
-        except mysql.connector.Error as e:
+        except Exception as e:
             print(f"Erro ao listar produtos:{e}")  
         finally:
             cursor.close()
@@ -43,7 +43,7 @@ class ProdutoController:
             cursor.execute(query, (preco, qtd, idProduto))
             conexao.commit()
             print(f"{idProduto} atualizado com sucesso!")
-        except mysql.connector.Error as e:
+        except Exception as e:
             print(f"Erro ao atualizar produto:{e}")  
         finally:
             cursor.close()
@@ -57,7 +57,7 @@ class ProdutoController:
             conexao.commit()
             print(F"{idProduto} Excluído!")
             
-        except mysql.connector.Error as e:
+        except Exception as e:
             print(f"Erro ao excluir produto:{e}")  
         finally:
             cursor.close()
@@ -74,7 +74,7 @@ class ProdutoController:
             for produto in registros:
                 objeto=Produto(*produto)
                 listaProduto.append(objeto)   
-        except mysql.connector.Error as e:
+        except Exception as e:
             print(f"Erro ao buscar produto:{e}")  
         finally:
             cursor.close()
